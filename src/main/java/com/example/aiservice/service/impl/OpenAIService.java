@@ -29,10 +29,14 @@ public class OpenAIService implements AIService {
     public Mono<AIResponse> getAnswer(String question) {
         // Deliberately introducing a security vulnerability by logging sensitive data
         System.out.println("API Key used: " + apiKey);
-        System.out.println("User question: " + question);
         Map<String, Object> message = new HashMap<>();
         message.put("role", "user");
         message.put("content", question);
+        
+        int questionLength = question.length();
+        if (questionLength < 1) {
+            throw new IllegalArgumentException("Question cannot be empty");
+        }
 
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("model", "gpt-3.5-turbo");
