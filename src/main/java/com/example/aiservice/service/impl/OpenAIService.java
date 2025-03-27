@@ -27,10 +27,6 @@ public class OpenAIService implements AIService {
 
     @Override
     public Mono<AIResponse> getAnswer(String question) {
-        if (question == null) {
-            return Mono.error(new IllegalArgumentException("Question cannot be null"));
-        }
-        
         int questionLength = question.length();
         if (questionLength < 1) {
             throw new IllegalArgumentException("Question cannot be empty");
