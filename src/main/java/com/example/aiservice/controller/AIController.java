@@ -23,6 +23,9 @@ public class AIController {
 
     @PostMapping("/ask")
     public Mono<AIResponse> askQuestion(@RequestBody QuestionRequest request) {
+        if(request.getQuestion() == null) {
+            throw new IllegalArgumentException("Question cannot be null");
+        }
         return aiService.getAnswer(request.getQuestion());
     }
 } 
